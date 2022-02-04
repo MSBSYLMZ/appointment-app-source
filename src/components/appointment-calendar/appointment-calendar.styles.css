@@ -1,0 +1,17 @@
+.rbc-day-slot .rbc-events-container{
+    margin-right: 0 !important;
+}
+.rbc-time-header{
+    display: none;
+}
+.rbc-label{
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 36px;
+/* identical to box height */
+
+letter-spacing: 0.02em;
+
+color: #000000;
+}
