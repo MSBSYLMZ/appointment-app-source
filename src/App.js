@@ -13,7 +13,7 @@ function App() {
   const [eventDetails, setEventDetails] = useState({})
   const [slotsInfo, setSlotsInfo]=useState({});
   const [currentDate, setCurrentDate ]=useState(new Date())
-  
+
   const openAppointmentDetails=(slots)=>{
     setEventDetails(slots)
     setHiddenEventDetails(false)
@@ -24,7 +24,7 @@ function App() {
   }
   const closeAppointmentDetails=()=>{
     setHiddenEventDetails(true)
-    prepareSlotObj();
+    // prepareSlotObj();
   }
   const generateEventId=(startDate)=>{
     let eventId=startDate.getTime().toString();
@@ -112,7 +112,6 @@ const prepareSlotObj=(eventId=null)=>{
         }
         setCurrentDateEvents([...currentDateEvents,eventObj]); 
       }
-    prepareSlotObj();
   }
 
   const deleteEvent=(eventId)=>{
@@ -122,26 +121,20 @@ const prepareSlotObj=(eventId=null)=>{
   }
 
   useEffect(() => {
-    setSlotsInfo(initializeSlotObj(48));
-      if(currentDateEvents.length>0){
-        prepareSlotObj();
-      }
-    getEvents()
+        getEvents()
   },[currentDate]);
   
   useEffect(() => {
     let currentDayId= generateDateId(currentDate)
-    events[currentDayId]=currentDateEvents;
-    setEvents(events);
+    let tmpEvents = {...events,[currentDayId]:currentDateEvents}
+    setEvents(tmpEvents);
+    prepareSlotObj();
   }, [currentDateEvents]);
   
   return (
     <div className='App'>
     <h1>Schedule an Appointment</h1>
-    <AppointmentCalendar openAppointmentDetails={openAppointmentDetails} events={currentDateEvents} setCurrentDate={setCurrentDate} getEvents={getEvents} />
-    {
-      console.log(events)
-    }
+    <AppointmentCalendar openAppointmentDetails={openAppointmentDetails} events={currentDateEvents} setCurrentDate={setCurrentDate} />
     {
       !hiddenEventDetails?
       <AppointmentDetails eventDetails={eventDetails} updateEvents={updateEvents} deleteEvent={deleteEvent} currentDateEvents={currentDateEvents} slotsInfo={slotsInfo} closeAppointmentDetails={closeAppointmentDetails}/>

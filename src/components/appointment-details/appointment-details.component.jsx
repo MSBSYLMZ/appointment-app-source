@@ -81,7 +81,6 @@ const prepareSelectOptions=(startDate)=>{
   return (
     
     <div id='appointment-details-container'>
-    {console.log(eventInfo)}
       <div className='close-icon' onClick={closeAppointmentDetails}>&#10006;</div>
       <h2>Event Details</h2>
       <input type="text" onChange={handleTitleChange} />
